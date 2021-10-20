@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Work Order Line Items" icon-name="standard:work_order_item">
+        <c-header name={workOrderTitle} class="slds-var-p-horizontal_small"></c-header>
+        <template if:true={hasWorkOrderLineItems}>
+            <template for:each={workOrderLineItems} for:item="lineItem">
+                <lightning-layout key={lineItem.id} >
+                    <lightning-layout-item padding="horizontal-small">
+                        <p>{lineItem.fields.LineItemNumber.value}</p>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="horizontal-small">
+                        <p>{lineItem.fields.Asset.displayValue}</p>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+        </template>
+    </lightning-card>
+</template>

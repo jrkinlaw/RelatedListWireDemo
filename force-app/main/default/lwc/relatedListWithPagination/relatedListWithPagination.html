@@ -1,0 +1,75 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-page-header slds-page-header_related-list slds-grid">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media slds-media_center">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-contact" title="contact">
+                                <lightning-icon icon-name="standard:contact" size="small"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1 slot="title">Contacts</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-card__body">
+            <template if:true={records}>
+                <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table_fixed-layout" role="grid" aria-label="Contacts">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Company">Phone</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Title">Title</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Email">Email</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={records} for:item="record">
+                            <tr class="slds-line-height_reset" key={record.id}>
+                                <th scope="row">
+                                    <div class="slds-truncate" title={record.fields.Name.value}>{record.fields.Name.value}</div>
+                                </th>
+                                <td role="gridcell">
+                                    <div class="slds-truncate" title={record.fields.Phone.value}>{record.fields.Phone.value}</div>
+                                </td>
+                                <td role="gridcell">
+                                    <div class="slds-truncate" title={record.fields.Title.value}>{record.fields.Title.value}</div>
+                                </td>
+                                <td role="gridcell">
+                                    <div class="slds-truncate" title={record.fields.Email.value}>{record.fields.Email.value}</div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+            <template if:false={hasRecords}>
+                No data.
+            </template>
+        </div>
+        <footer class="slds-card__footer">
+            <template if:true={hasPrevPage}>
+                <a class="slds-card__footer-action" href="#" onclick={goToPrevPage}>prev page</a>
+            </template>
+            <template if:true={hasNextPage}>
+                <a class="slds-card__footer-action" href="#" onclick={goToNextPage}>next page</a>
+            </template>
+        </footer>
+    </article>
+</template>

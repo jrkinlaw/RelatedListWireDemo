@@ -1,44 +1,38 @@
-import { api, track, wire, LightningElement } from 'lwc';
+import { api, track, wire, LightningElement, unwrap } from 'lwc';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 
 export default class RelatedListWithPagination extends LightningElement {
 
+    DEFAULT_PAGE_SIZE = 2;
+
     @api recordId;
-    @track records;
-    @track pageT;
+    @track records = [];
+    
+    nextPageToken;
+    pageSize = 2;
 
-    nextPage;
-    prevPage;
-
-    @wire(getRelatedListRecords, { parentRecordId: '$recordId', relatedListId: 'Contacts', fields: ['Contact.Name', 'Contact.Title', 'Contact.Email', 'Contact.Phone'], pageSize: 2, pageToken: '$pageT' })
+    @wire(getRelatedListRecords, { parentRecordId: '$recordId', relatedListId: 'Contacts', fields: ['Contact.Name', 'Contact.Title', 'Contact.Email', 'Contact.Phone'], pageSize: '$pageSize' })
     callback({data, error}) {
         if (data) {
+            this.records = [];
             this.records = data.records;
-            this.nextPage = data.nextPageToken;
-            this.prevPage = data.previousPageToken;
+            this.nextPageToken = data.nextPageToken;
         } else if (error) {
-            console.log(error);
             this.error = error;
         }
     }
 
-    get hasRecords() {
-        return this.records && this.records.length > 0;
+    hasRecords() {
+        return this.records && this.records.length;
     }
     
-    get hasNextPage() {
-        return this.nextPage && this.nextPage !== '0';
+    get hasMore() {
+        return this.nextPageToken !== null;
     }
 
-    get hasPrevPage() {
-        return this.prevPage && this.prevPage !== '0';
-    }
-
-    goToNextPage() {
-        this.pageT = this.nextPage;
-    }
-
-    goToPrevPage() {
-        this.pageT = this.prevPage;
+    showMore() {
+        console.log(this.nextPageToken);
+        console.log(this.pageSize);
+        this.pageSize += 2;
     }
 }

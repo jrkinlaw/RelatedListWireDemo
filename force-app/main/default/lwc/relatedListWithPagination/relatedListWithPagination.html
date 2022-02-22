@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="slds-card__body">
-            <template if:true={records}>
+            <template if:true={hasRecords}>
                 <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table_fixed-layout" role="grid" aria-label="Contacts">
                     <thead>
                         <tr class="slds-line-height_reset">
@@ -64,11 +64,8 @@
             </template>
         </div>
         <footer class="slds-card__footer">
-            <template if:true={hasPrevPage}>
-                <a class="slds-card__footer-action" href="#" onclick={goToPrevPage}>prev page</a>
-            </template>
-            <template if:true={hasNextPage}>
-                <a class="slds-card__footer-action" href="#" onclick={goToNextPage}>next page</a>
+            <template if:true={hasMore}>
+                <a class="slds-card__footer-action" href="#" onclick={showMore}>Show More</a>
             </template>
         </footer>
     </article>

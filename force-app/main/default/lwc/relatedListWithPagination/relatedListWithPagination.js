@@ -30,7 +30,9 @@ export default class RelatedListWithPagination extends LightningElement {
         return this.nextPageToken !== null;
     }
 
-    showMore() {
+    showMore(e) {
+        e.preventDefault();
+
         console.log(this.nextPageToken);
         console.log(this.pageSize);
         this.pageSize += 2;

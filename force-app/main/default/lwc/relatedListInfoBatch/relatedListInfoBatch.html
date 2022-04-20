@@ -1,0 +1,15 @@
+<template>
+    <template if:true={results}>
+        <div class="slds-m-around_medium">
+            <template for:each={results} for:item="result">
+                <lightning-card key={result.result.fieldApiName} title={result.result.label}>
+                    <template for:each={result.result.displayColumns} for:item="col">
+                        <p key={col.fieldApiName}>
+                            {col.label}
+                        </p>
+                    </template>
+                </lightning-card>
+            </template>
+        </div>
+    </template>
+</template>
